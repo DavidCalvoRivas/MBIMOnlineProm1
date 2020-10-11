@@ -7,36 +7,38 @@ Describir la tabla employees
 /* 2
 Describir la tabla departments
 */
-
+desc departments;
 /* 3
 Describir la tabla locations
 */
-
+desc locations;
 /* 4
 Datos de la tabla regions
 */
-
+select * from regions;
 /* 5
 Datos de la tabla countries
 */
-
+select * from countries;
 /* 6
 Ciudad y estado de las localidades
 */
-
+select CITY,STATE_PROVINCE from locations;
 /* 7
 Nombre, apellido, salario de los empleados
 */
-
+select FIRST_NAME,LAST_NAME,SALARY from employees;
 /* 8
 Número de departamento, nombre, y manager_id de los departamentos
 */
-
+select DEPARTMENT_ID,DEPARTMENT_NAME,MANAGER_ID from departments
 /* 9
 Número y nombre de departamento, además, el código del empleado jefe,
 de la localidad 1700.
 */
-
+select DEPARTMENT_ID,DEPARTMENT_NAME from departments;
+select employee_id from employees where job_id='AD_PRES';
+select city from locations where location_id=1700;
 /* 10
 Nombre y número de departamento de los empleados.
 */
