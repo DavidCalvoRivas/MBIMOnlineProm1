@@ -42,29 +42,34 @@ select city from locations where location_id=1700;
 /* 10
 Nombre y número de departamento de los empleados.
 */
-
+select first_name,department_id from employees;
 /* 11
 Nombre y número de departamento de los empleados
 ordenados por número de departamento ascendentemente.
 */
-
+select first_name,department_id from employees
+order by department_id asc;
 /* 12
 Listar los distintos números de departamento en el que trabajan los empleados.
 */
-
+select department_id from employees
+order by department_id asc;
 /* 13
 Listar los distintos números de departamento en el que trabajan los empleados
 ordenados descendentemente.
 */
-
+select department_id from employees
+order by department_id desc;
 /* 14
 Nombre, apellido y salario ordenados por id de empleado descendentemente
 */
-
+select first_name||' '||last_name,salary from employees
+order by employee_id desc;
 /* 15
 Nombre, apellido y salario ordenado por apellido ascendentemente y salario descendentemente
 */
-
+select first_name||' '||last_name Nombre,salary from employees
+order by last_name asc,salary desc;
 /* 16
 códigos de los distintos trabajos que existen en el departamento 30
 */
