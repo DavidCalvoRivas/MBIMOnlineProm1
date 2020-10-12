@@ -122,7 +122,7 @@ empieza por la R, incluidos.
 */
 select first_name,last_name,employee_id
 from employees 
-where substr(last_name,1,1)>'L' and substr(last_name,1,1)<'R';
+where substr(last_name,1,1)>='L' and substr(last_name,1,1)<='R';
 /* 23
 Lista de apellidos que su segunda letra sea una 'a'
 */
