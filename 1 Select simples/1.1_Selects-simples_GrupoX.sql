@@ -145,7 +145,14 @@ pero como salario una etiqueta que indique
 'BAJO' si es menor a 4280, 'ALTO' si es mayor a 15230
 y 'MEDIO' si está entre medias
 */
-
+select first_name,last_name,
+CASE
+WHEN salary<4280 then 'ALTO'
+WHEN salary between 4280 and 15230 then 'MEDIO'
+ELSE 'BAJO'
+END
+salary
+from employees;
 /* 26
 Listar los correos concatenados con el texto '@company.com'
 */
