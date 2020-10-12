@@ -68,7 +68,8 @@ order by employee_id desc;
 /* 15
 Nombre, apellido y salario ordenado por apellido ascendentemente y salario descendentemente
 */
-select first_name||' '||last_name Nombre,salary from employees
+select first_name||' '||last_name Nombre,salary 
+from employees
 order by last_name asc,salary desc;
 /* 16
 códigos de los distintos trabajos que existen en el departamento 30
@@ -83,19 +84,26 @@ ordenados descendentemente
 Nombre, apellido y correo de los empleados del departamento 30
 cuyo salario es menor a 3000
 */
-
+select first_name,last_name,email 
+from employees 
+where department_id=30 and salary<3000
 /* 19
 Nombre, apellido y correo de los empleados del departamento 30
 cuyo salario es menor a 3000
 o que sean del departamento 90
 */
-
+select first_name,last_name,email 
+from employees 
+where (department_id=30 and salary<3000) or department_id=90;
 /* 20
 nombre, apellido y número de departamento de los empleados
 que no tengan comisión. Ordenados por número de departamento 
 del mayor a menor y por apellido descendentemente.
 */
-
+select first_name,last_name,department_id 
+from employees 
+where commission_pct is null
+order by department_id desc,last_name desc;
 /* 21
 nombre, apellido, número de departamento y salario de los empleados
 que no tengan comisión o su salario sea menor a 6000 
@@ -103,13 +111,18 @@ y que se cumpla que son del departamento 60 o del 90
 ordenados por número de departamento descendentemente
 y por salario ascendentemente.
 */
-
+select first_name,last_name,department_id,salary
+from employees 
+where (commission_pct is null or salary<6000) and department_id in (60,90)
+order by department_id desc,salary asc;
 /* 22
 Número de empleado, nombre y apellido de los empleados
 desde el apellido que empieza por L hasta los que su apellido
 empieza por la R, incluidos.
 */
-
+select first_name,last_name,employee_id
+from employees 
+where substr(last_name,1,1)>'L' and substr(last_name,1,1)<'R';
 /* 23
 Lista de apellidos que su segunda letra sea una 'a'
 */
