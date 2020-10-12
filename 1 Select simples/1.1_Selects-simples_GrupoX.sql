@@ -126,13 +126,19 @@ where substr(last_name,1,1)>='L' and substr(last_name,1,1)<='R';
 /* 23
 Lista de apellidos que su segunda letra sea una 'a'
 */
-
+select last_name
+from employees
+where last_name LIKE '_a%';
 /* 24
 Lista de apellidos de empleados donde el apellido empieza por alguna vocal
 y que su salario es menor a 3000 o mayor a 9000
 y debe cumplirse que su departamento es el 30, 60 o 90.
 */
-
+select last_name
+from employees
+where substr(last_name,2,1) in ('a','e','i','o','u') 
+and department_id in (30,60,90) 
+and (salary>9000 or salary<3000);
 /* 25
 Nombre, apellido y el salario de los empleados
 pero como salario una etiqueta que indique 
@@ -143,15 +149,20 @@ y 'MEDIO' si está entre medias
 /* 26
 Listar los correos concatenados con el texto '@company.com'
 */
-
+select email||'@company.com'
+from employees;
 /* 27
 Lista de nombres de las ciudades que su país es 'US'
 */
-
+Select city
+from locations
+where country_id='US';
 /* 28
 Lista de nombre de las ciudades que su país no es Estados Unidos
 */
-
+Select city
+from locations
+where country_id!='US';
 /* 29
 Número y nombre de los departamentos que tienen un jefe.
 */
