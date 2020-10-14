@@ -54,23 +54,36 @@ order by 2 desc;
 Mostrar en una fila cuántos empleados son jefes de departamento
 y en otra fila cuántos son jefes de otros empleados.
 */
-
+select count(distinct manager_id)
+from departments
+union
+select count(distinct manager_id)
+from employees;
 /* 9
 Listar nombre, apellido de los empleados que les coindice a la vez
 la primera letra de su nombre y el apellido
 */
-
+select first_name,last_name
+from employees
+where substr(first_name,1,1)=substr(last_name,1,1);
 /* 10
 Número de empleados dados de alta por día
 ordenados descendentemente por la fecha
 */
-
+select hire_date,count(hire_date)
+from employees
+group by hire_date
+having count(hire_date)>=1
+order by 1 desc;
 /* 11
 Un listado por año de la media de salarios
 de los empleados que ingresaron ese año
 ordenados de forma descendente por año
 */
-
+select to_char(hire_date,'yyyy') Año_Contratacion,round(avg(salary),2) Media_Salarial
+from employees
+group by to_char(hire_date,'yyyy')
+order by 1 desc;
 /* 12
 Nombre del día en el que más empleados
 se han dado de alta
