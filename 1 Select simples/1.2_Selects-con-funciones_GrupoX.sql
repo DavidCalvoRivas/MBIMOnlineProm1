@@ -20,26 +20,36 @@ Día en palabras en el cual naciste
 /* 3
 La suma de salarios, cuál es el mínimo, el máximo y la media de salario
 */
-
+Select
+        Sum(salary),Min(salary),max(salary),trunc(avg(salary),2)
+from employees;
 /* 4
 Cuántos empleados hay, cuántos tienen salario y cuántos tienen comisión.
 */
-
+Select count(employee_id),count(salary),count(commission_pct)
+from employees;
 /* 5
 Por un lado la media entre la media de salarios y el mínimo salario
 Y por otro lado, la media entre la media de salarios y el máximo salario
 Solo la parte entera, sin decimales ni redondeo.
 */
-
+Select trunc(AVG(salary)/min(salary),0),trunc(avg(salary)/max(salary),0)
+from employees;
 /* 6
 Listar el número de departamento y el máximo salario en cada uno de ellos.
 */
-
+select department_id,max(salary)
+from employees
+group by department_id;
 /* 7
 Mostrar los nombres de los empleados que se repiten indicando cuántos hay del mismo
 en orden descendente.
 */
-
+select first_name,count(first_name)
+from employees
+group by first_name
+having count(first_name)>1
+order by 2 desc;
 /* 8
 Mostrar en una fila cuántos empleados son jefes de departamento
 y en otra fila cuántos son jefes de otros empleados.
