@@ -190,6 +190,11 @@ where manager_id is null;
 Nombre de las columnas de la tabla de empleados 'Employees'
 que no tienen un guión bajo en el nombre.
 */
-
+select column_name, table_name
+from user_tables
+where   
+        table_name='EMPLOYEES' 
+        and 
+        column_name not like '%_%';
 --
 ------------------------------------------------------------------------------------------------
