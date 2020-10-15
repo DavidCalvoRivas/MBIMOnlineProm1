@@ -51,16 +51,34 @@ group by city;
 -- 7
 -- Número de empleados y número de departamentos de todas las ciudades (nombre)
 -- ordenado por número de empleados descendentemente
-
+select city,count(employee_id),count(departments.department_id)
+from locations
+join departments
+on locations.location_id=departments.location_id
+join employees
+on departments.department_id=employees.department_id
+group by city
+order by 2 desc;
 -- 8
 -- Mostrar el número de empleado, nombre y apellido de los empleados
 -- que sean jefes tanto como de departamento como de otro empleado
 -- indicando en una sola columna con un literal 'DEP' si es jefe de departamento
 -- y 'EMP' si es jefe de otro empleado. Ordenados por número de empleado.
-
+select First_name,last_name,
+Case
+when employee_id in (select manager_id from employees) then 'EMP'
+else 'DEP'
+end JEFE
+from employees
+where employee_id in (select manager_id from employees) or employee_id in (select manager_id from departments)
+order by employee_id desc;
 -- 9
 -- Listar el nombre, apellido y salario de los tres empleados que ganan más
-
+select rownum,Orden,first_name,last_name,salary
+from (select rownum Orden,first_name,last_name,salary
+        from employees
+        order by salary desc)
+where rownum<4;
 -- 10
 -- Imaginad que queremos crear nombres de usuario para direcciones de correo.
 -- Cuyo formato es la primera letra del nombre más el apellido.
