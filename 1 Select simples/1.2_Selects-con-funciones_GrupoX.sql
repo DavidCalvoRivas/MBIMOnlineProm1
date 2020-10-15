@@ -91,5 +91,7 @@ se han dado de alta
 Select to_char(hire_date,'Day') Dia_Contratacion,count(hire_date) Nº_Contrataciones
 from employees
 group by to_char(hire_date,'Day')
-having count(hire_date)=max((select count(hire_date) from employees group by to_char(hire_date,'Day')));
+HAVING count(hire_date)=(select max(count(hire_date)) 
+from employees 
+group by to_char(hire_date,'Day'));
 ------------------------------------------------------------------------------------------------
