@@ -160,9 +160,23 @@ where city='Seattle';
 -- 14
 -- Nombre, apellido, email, department_name
 -- de los empleados del departamento con más empleados
-
+select first_name,last_name,email,department_name
+from employees
+join departments on employees.department_id=departments.department_id
+where employees.department_id=(select department_id from (select department_id,count(distinct employee_id) Nº_empleados
+                            from employees
+                            group by department_id)
+                            where nº_empleados=(select max(nº_empleados) from (select department_id,count(distinct employee_id) Nº_empleados
+                            from employees
+                            group by department_id)));
 -- 15
 -- Cuál es la fecha en la que más empleados
 -- se han dado de alta
-
+select hire_date Fecha_Mayor_NºAltas
+from (select hire_date,count(employee_id) Altas
+        from employees
+        group by hire_date)
+where Altas=(select max(Altas) from (select hire_date,count(employee_id) Altas
+                                    from employees
+                                    group by hire_date));
 ------------------------------------------------------------------------------------------------
