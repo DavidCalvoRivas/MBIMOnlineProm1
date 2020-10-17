@@ -83,13 +83,28 @@ where rownum<4;
 -- Imaginad que queremos crear nombres de usuario para direcciones de correo.
 -- Cuyo formato es la primera letra del nombre más el apellido.
 -- Queremos saber si del listado de nombres y apellidos alguien coinciden
-
+select Email,count(email),
+case when count(email)>1 then 'Repetido'
+else 'No_Repetido'
+end Repetidos
+from
+(select substr(first_name,1,1)||last_name Email
+from employees)
+group by email
+order by 1 desc;
 -- 11
 -- Listar nombre, apellido y un literal que indique el salario.
 -- 'BAJO' si el salario es menor a la mediabaja (media entre el salario mínimo y la media de salarios)
 -- 'ALTO' si el salario es mayor a la mediaalta (media entre el salario máximo y la media de salarios)
 -- 'MEDIO' si el salario está entre la mediabaja y medialata.
-
+select first_name,last_name,
+case
+when salary<MediaBaja then 'BAJO'
+when salary>MediaAlta then 'ALTO'
+else 'MEDIO'
+end Salario
+from employees,(select round((avg(salary)+max(salary))/2,2) MediaAlta,max(salary),min(salary),round((avg(salary)+min(salary))/2,2) MediaBaja
+from employees);
 -- 12
 -- Número de empleados dados de alta por día
 -- entre dos fechas. Ej: entre 1997-10-10 y 1998-03-07
@@ -99,7 +114,13 @@ where rownum<4;
 -- en la parte visual de la aplicación se muestran desplegables
 -- para escoger los valores, pero luego eso se reemplaza en la consulta)
 -- Aquí usamos valores fijos de ejemplo.
-
+select count(Fecha_Alta)
+from (select hire_date Fecha_Alta,city Ciudad
+from employees
+join departments on employees.department_id=departments.department_id
+join locations on departments.location_id=locations.location_id
+order by city desc)
+where Fecha_Alta<='03/07/98' and Fecha_Alta>='10/10/97' and Ciudad in('Seattle','Southlake');
 -- 13
 -- Un listado en el que se indique en líneas separadas
 -- una etiqueda que describa el valor y como valor:
@@ -108,7 +129,34 @@ where rownum<4;
 -- el número de departamentos sin empleados en Seattle
 -- el número de jefes de empleado en Seattle
 -- el número de jefes de departamento en Seattle
-
+Select count(distinct employee_id) SEATTLE
+from employees
+right join departments on employees.department_id=departments.department_id
+join locations on departments.location_id=locations.location_id
+where city='Seattle'
+UNION ALL
+select count(distinct departments.department_id)
+from employees
+right join departments on employees.department_id=departments.department_id
+join locations on departments.location_id=locations.location_id
+where city='Seattle' and employee_id is null
+UNION ALL
+select count(distinct departments.department_id)
+from employees
+right join departments on employees.department_id=departments.department_id
+join locations on departments.location_id=locations.location_id
+where city='Seattle' and employee_id is not null
+UNION ALL
+Select count(distinct departments.manager_id)
+from departments
+join locations on departments.location_id=locations.location_id
+where city='Seattle'
+UNION ALL
+Select count(distinct employees.manager_id)
+from employees
+right join departments on employees.department_id=departments.department_id
+join locations on departments.location_id=locations.location_id
+where city='Seattle';
 -- 14
 -- Nombre, apellido, email, department_name
 -- de los empleados del departamento con más empleados
