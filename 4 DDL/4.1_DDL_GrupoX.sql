@@ -114,6 +114,20 @@ warrantyYears
     constraint uq_typ_guid unique(guid),
     constraint ch_typ_wYears check(warrantyYears>=0));
 
+
+alter table COMPONENTS add 
+(constraint fk_com_space FOREIGN KEY(spaceid) references SPACES(id),
+constraint fk_com_type foreiGN key(typeId) references TYPES(id));
+
+ALTER TABLE FLOORS ADD(
+constraint fk_flo_fId foreiGN key(facilityId) 
+references FACILITIES(id));
+
+alter table SPACES add(
+constraint fk_spa_FId foreiGN key(floorId)
+references FLOORS(id));
+
+
 En las definiciones establacer las siguientes restricciones
 -Los guid deben ser únicos.
 -No es posible dar de alta un componente sin un tipo.
