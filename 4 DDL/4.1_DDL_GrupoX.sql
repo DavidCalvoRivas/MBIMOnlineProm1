@@ -111,7 +111,8 @@ warrantyYears
     warrantyYears number,
     constraint pk_typ_id primary key(id),
     constraint uq_typ_name unique(name),
-    constraint uq_typ_guid unique(guid));
+    constraint uq_typ_guid unique(guid),
+    constraint ch_typ_wYears check(warrantyYears>=0));
 
 En las definiciones establacer las siguientes restricciones
 -Los guid deben ser únicos.
